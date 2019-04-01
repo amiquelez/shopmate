@@ -1,0 +1,30 @@
+header{
+    width: calc(100%-62px);
+    padding: 0 31px;
+    background: #2e2e2e;
+    height: 72px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+h1{
+    font-weight: 700;
+    font-size: 24px;
+    text-transform: uppercase;
+    color: #ffffff;
+}
+nav{
+    width: 30%;
+}
+nav ul{
+    display: flex;
+    justify-content: space-between;
+}
+nav ul li{
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 700;
+}
+i{
+    color: #ffffff;
+}
