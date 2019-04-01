@@ -2,7 +2,16 @@ import React from 'react';
 
 const Menu = () => {
     return (
-        <h3>Categories</h3>
+        <div>
+            <h3>Categories</h3>
+            <ul>
+                <li>French</li>
+                <li>Italian</li>
+                <li>Animal</li>
+                <li>Flowers</li>
+                <li>Christmas</li>
+            </ul>
+        </div>
     )
 }
 

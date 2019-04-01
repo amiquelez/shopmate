@@ -2,3 +2,7 @@
     width: 100%;
     margin: auto;
 }
+.content{
+    display: grid;
+    grid-template-columns: 15% auto;
+}
