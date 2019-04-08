@@ -1,0 +1,10 @@
+.list_products{
+    width: 85%;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 50px;
+    li{
+      width: 260px;
+      margin: 10px;
+    }
+}

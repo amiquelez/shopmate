@@ -1,8 +1,9 @@
 import React from 'react';
+import './Menu.scss';
 
 const Menu = () => {
     return (
-        <div>
+        <div className="categories_menu">
             <h3>Categories</h3>
             <ul>
                 <li>French</li>

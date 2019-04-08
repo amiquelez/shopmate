@@ -3,6 +3,5 @@
     margin: auto;
 }
 .content{
-    display: grid;
-    grid-template-columns: 15% auto;
+    display: flex;
 }
