@@ -7,8 +7,8 @@ const Product = props => {
         <div className="single_product">
             <h4 className="title">{title}</h4>
             <img src={image} alt={title} />
-            <span className="price">${price}</span>
             <p className="desciption">{description}</p>
+            <span className="price">${price}</span>
         </div>
     )
 }
