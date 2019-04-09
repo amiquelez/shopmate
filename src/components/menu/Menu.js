@@ -1,4 +1,5 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import './Menu.scss';
 
 class Menu extends Component {
@@ -15,7 +16,7 @@ class Menu extends Component {
 
     render(){
         const categories = this.state.categories.map( cat => {
-            return <li key={cat.category_id}>{cat.name}</li>;
+            return <li key={cat.category_id} onClick={() => this.props.onSelectCategory(cat.category_id)}>{cat.name}</li>;
         })
         return (
             <div className="categories_menu">
@@ -26,4 +27,10 @@ class Menu extends Component {
     }
 }
 
-export default Menu;
+const mapDispatchToProps = dispatch => {
+    return {
+        onSelectCategory: (category) => dispatch({type: 'FILTER_CATEGORY', val: category})
+    };
+}
+
+export default connect(null, mapDispatchToProps)(Menu);
