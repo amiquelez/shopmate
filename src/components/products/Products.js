@@ -8,7 +8,8 @@ class Products extends Component {
         products: [],
         perPage: 8,
         page: 1,
-        totalPages: null
+        totalPages: null,
+        search: ''
     }
     componentWillMount() {
         this.loadProducts();
@@ -39,7 +40,8 @@ class Products extends Component {
     loadProducts = () => {
         const {perPage, page, products} = this.state;
         const filter = (this.props.cat) ? `/inCategory/${this.props.cat}` : '';
-        const url = `https://backendapi.turing.com/products${filter}?page=${page}&limit=${perPage}`;
+        const search = (this.props.search) ? `/search?query_string=${this.props.search}` : '';
+        const url = `https://backendapi.turing.com/products${filter}${search}?page=${page}&limit=${perPage}`;
         fetch(url)
         .then( res => res.json())
         .then(data => this.setState({
@@ -73,7 +75,8 @@ class Products extends Component {
 
 const mapStateToProps = state => {
     return {
-        cat: state.filterCategory
+        cat: state.filterCategory,
+        search: state.searchTxt
     }
 }
 

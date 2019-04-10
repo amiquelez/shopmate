@@ -1,5 +1,6 @@
 const initialState = {
-    filterCategory: ''
+    filterCategory: '',
+    searchTxt: ''
 }
 
 const reducer = (state = initialState, action) => {
@@ -7,6 +8,10 @@ const reducer = (state = initialState, action) => {
        case 'FILTER_CATEGORY':
             return {
                 filterCategory: action.val
+            }
+        case 'SEARCH_TXT':
+            return {
+                searchTxt: action.val
             }
         default:
             return state;
