@@ -8,8 +8,7 @@ class Products extends Component {
         products: [],
         perPage: 8,
         page: 1,
-        totalPages: null,
-        categoryId: null
+        totalPages: null
     }
     componentWillMount() {
         this.loadProducts();
@@ -18,11 +17,19 @@ class Products extends Component {
         })
     }
 
+    componentWillReceiveProps(){
+        this.setState( prevState => ({
+                products: [],
+                page: 1
+        }), this.loadProducts)
+    }
+
     handleScroll = e => {
         const {scrolling, totalPages, page} = this.state;
         if(scrolling) return;
         if(totalPages <= page) return;
         const lastLi = document.querySelector('ul.list_products li:last-child');
+        if(!lastLi) return;
         const lastLiOffset = lastLi.offsetTop + lastLi.clientHeight;
         const pageOffset = window.pageYOffset + window.innerHeight;
         const bottomOffset = 20;
