@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './Menu.scss';
+import * as actionCreators from '../../store/actions/actions';
 
 class Menu extends Component {
     
@@ -42,13 +43,13 @@ class Menu extends Component {
 
 const mapStateToProps = state => {
     return {
-        department: state.department
+        department: state.filter.department
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        onSelectCategory: (category) => dispatch({type: 'FILTER_CATEGORY', val: category})
+        onSelectCategory: (category) => dispatch(actionCreators.filterCategory(category))
     };
 }
 

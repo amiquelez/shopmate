@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Product from './product/Product';
 import './Products.scss';
+import * as actionCreators from '../../store/actions/actions';
 
 class Products extends Component {
     state = {
         products: [],
         perPage: 8,
-        page: 1,
         totalPages: null,
         search: ''
     }
@@ -19,14 +19,15 @@ class Products extends Component {
     }
 
     componentWillReceiveProps(){
-        this.setState( prevState => ({
-                products: [],
-                page: 1
-        }), this.loadProducts)
+        /*this.setState( prevState => ({
+                products: []
+        }), this.loadProducts)*/
+       // this.loadProducts();
     }
 
     handleScroll = e => {
-        const {scrolling, totalPages, page} = this.state;
+        const {scrolling, totalPages} = this.state;
+        const page = this.props.page;
         if(scrolling) return;
         if(totalPages <= page) return;
         const lastLi = document.querySelector('ul.list_products li:last-child');
@@ -38,28 +39,38 @@ class Products extends Component {
     }
 
     loadProducts = () => {
-        const {perPage, page, products} = this.state;
+        const {perPage} = this.state
+        const page = this.props.page;
         const filter = (this.props.cat) ? `/inCategory/${this.props.cat}` : '';
         const search = (this.props.search) ? `/search?query_string=${this.props.search}` : '';
         const url = `https://backendapi.turing.com/products${filter}${search}?page=${page}&limit=${perPage}`;
-        fetch(url)
+        this.props.onLoadProducts(url);
+        
+        this.setState({
+            scrolling: false,
+            totalPages: Math.ceil(data.count / perPage)
+        })
+        /*fetch(url)
         .then( res => res.json())
         .then(data => this.setState({
             products: [...products, ...data.rows],
             scrolling: false,
             totalPages: Math.ceil(data.count / perPage)
-        }))
+        }))*/
     }
 
     loadMore = () => {
-        this.setState(prevState => ({
-            page: prevState.page + 1,
+        const page = this.props.page;
+        this.props.onSetPage(page + 1);
+        this.setState({
             scrolling: true
-        }), this.loadProducts)
+        }, this.loadProducts)
     }
 
     render (){
-        const products = this.state.products.map(prod => {
+        const prods = this.props.prod[0];
+        if(!prods) return <ul></ul>;
+        const products = prods.map(prod => {
             const description = `${prod.description.substring(0, 80)}${prod.description.length > 80 ? '...' : null}`;
             return <li key={prod.product_id}><Product image={require(`../../assets/images/product/${prod.thumbnail}`)} title={prod.name} description={description} price={prod.price} /></li>
         });
@@ -75,9 +86,18 @@ class Products extends Component {
 
 const mapStateToProps = state => {
     return {
-        cat: state.filterCategory,
-        search: state.searchTxt
+        cat: state.filter.filterCategory,
+        search: state.filter.searchTxt,
+        page: state.filter.page,
+        prod: state.filter.products
     }
 }
 
-export default connect(mapStateToProps)(Products);
+const mapDispatchToProps = dispatch => {
+    return {
+        onSetPage: (page) => dispatch(actionCreators.setPage(page)),
+        onLoadProducts: (url) => dispatch(actionCreators.loadProducts(url))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Products);

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import './Header.css';
 import SearchBar from '../search-bar/SearchBar';
+import * as actionCreators from '../../store/actions/actions';
 
 class Header extends Component {
     
@@ -34,7 +35,7 @@ class Header extends Component {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onSelectDepartment: (department) => dispatch({type: 'FILTER_DEPARTMENT', val: department})
+        onSelectDepartment: (department) => dispatch(actionCreators.filterDepartment(department))
     }
 }
 

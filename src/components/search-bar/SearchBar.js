@@ -1,6 +1,7 @@
 import React from 'react';
 import './SearchBar.css';
 import { connect } from 'react-redux';
+import * as actionCreators from '../../store/actions/actions';
 
 const SearchBar = props => {
     return (
@@ -10,7 +11,7 @@ const SearchBar = props => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onSearch: (txt) => dispatch({type: 'SEARCH_TXT', val: txt})
+        onSearch: (txt) => dispatch(actionCreators.searchTxt(txt))
     };
 }
 
