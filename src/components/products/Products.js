@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Product from './product/Product';
 import './Products.scss';
-import * as actionCreators from '../../store/actions/actions';
+import * as actionCreators from '../../store/actions/index';
 
 class Products extends Component {
     state = {
@@ -46,10 +46,6 @@ class Products extends Component {
         const url = `https://backendapi.turing.com/products${filter}${search}?page=${page}&limit=${perPage}`;
         this.props.onLoadProducts(url);
         
-        this.setState({
-            scrolling: false,
-            totalPages: Math.ceil(data.count / perPage)
-        })
         /*fetch(url)
         .then( res => res.json())
         .then(data => this.setState({

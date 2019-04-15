@@ -1,7 +1,7 @@
 import React from 'react';
 import './SearchBar.css';
 import { connect } from 'react-redux';
-import * as actionCreators from '../../store/actions/actions';
+import * as actionCreators from '../../store/actions/index';
 
 const SearchBar = props => {
     return (
