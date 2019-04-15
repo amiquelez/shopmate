@@ -9,9 +9,22 @@ class Menu extends Component {
     }
 
     componentWillMount() {
-        fetch('https://backendapi.turing.com/categories')
+        this.loadCategories();
+    }
+
+    componentWillReceiveProps(){
+        this.loadCategories();
+    }
+
+    loadCategories(){
+        const filter = (this.props.department) ? `/inDepartment/${this.props.department}` : '';
+        const url = `https://backendapi.turing.com/categories${filter}`;
+        fetch(url)
         .then( res => res.json())
-        .then(data => this.setState({categories: data.rows}))
+        .then(data => {
+            const categories = data.rows ? data.rows : data;
+            this.setState({categories: categories});
+        })
     }
 
     render(){
@@ -27,10 +40,16 @@ class Menu extends Component {
     }
 }
 
+const mapStateToProps = state => {
+    return {
+        department: state.department
+    }
+}
+
 const mapDispatchToProps = dispatch => {
     return {
         onSelectCategory: (category) => dispatch({type: 'FILTER_CATEGORY', val: category})
     };
 }
 
-export default connect(null, mapDispatchToProps)(Menu);
+export default connect(mapStateToProps, mapDispatchToProps)(Menu);

@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux';
 import './Header.css';
 import SearchBar from '../search-bar/SearchBar';
 
@@ -16,7 +17,7 @@ class Header extends Component {
 
     render(){
         const departments = this.state.departments.map(dep => {
-            return <li key={dep.department_id}>{dep.name}</li>
+            return <li key={dep.department_id} onClick={() => this.props.onSelectDepartment(dep.department_id)}>{dep.name}</li>
         })
         return (
             <header>
@@ -31,4 +32,10 @@ class Header extends Component {
     }
 }
 
-export default Header;
+const mapDispatchToProps = dispatch => {
+    return {
+        onSelectDepartment: (department) => dispatch({type: 'FILTER_DEPARTMENT', val: department})
+    }
+}
+
+export default connect(null, mapDispatchToProps)(Header);
