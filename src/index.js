@@ -8,25 +8,16 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import filterReducer from './store/reducers/filter';
+import productReducer from './store/reducers/product';
 
 const rootReducer = combineReducers({
-    filter: filterReducer
+    filter: filterReducer,
+    product: productReducer
 });
-
-const logger = store => {
-    return next => {
-        return action => {
-            console.log('Middleware dispatching', action);
-            const result = next(action);
-            console.log('Middleware next state', store.getState());
-            return result;
-        }
-    }
-};
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const store = createStore(rootReducer, composeEnhancers(applyMiddleware(logger, thunk)));
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
 
 ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
 

@@ -1,12 +1,9 @@
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
-    products: [],
     filterCategory: '',
     searchTxt: '',
-    department: null,
-    page: 1,
-    scrolling: false
+    department: null
 }
 
 const reducer = (state = initialState, action) => {
@@ -26,17 +23,6 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 department: action.val
-            }
-        case actionTypes.SET_PAGE:
-            return {
-                ...state,
-                page: action.val
-            }
-        case actionTypes.LOAD_PRODUCTS:
-            return {
-                ...state,
-                scrolling: false,
-                products: [...state.products, action.result]
             }
         default:
             return state;

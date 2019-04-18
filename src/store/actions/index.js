@@ -5,5 +5,6 @@ export {
     setPage
 } from './filter';
 export {
-    loadProducts
+    loadProducts,
+    setScrolling
 } from './products';
