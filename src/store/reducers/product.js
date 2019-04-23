@@ -27,6 +27,11 @@ const reducer = (state = initialState, action) => {
                 products: [...state.products, ...action.result],
                 totalPages: Math.ceil(action.totalProds / state.perPage)
             }
+        case actionTypes.RESET_PRODUCTS:
+            return {
+                ...state,
+                products: []
+            }
         default:
             return state;
     }

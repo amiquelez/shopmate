@@ -1,12 +1,5 @@
 import * as actionTypes from './actionTypes';
 
-export const filterCategory = (cat) => {
-    return {
-        type: actionTypes.FILTER_CATEGORY,
-        val: cat
-    }
-};
-
 export const searchTxt = (txt) => {
     return {
         type: actionTypes.SEARCH_TXT,

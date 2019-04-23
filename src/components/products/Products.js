@@ -5,11 +5,26 @@ import './Products.scss';
 import * as actionCreators from '../../store/actions/index';
 
 class Products extends Component {
+    
+    state = {
+        category: null
+    }
+
     componentWillMount() {
         this.loadProducts();
         this.scrollListener = window.addEventListener('scroll', (e) => {
             this.handleScroll(e)
         })
+    }
+
+    componentDidUpdate() {
+        const catId = this.props.match.params.catId;
+        if( catId && this.state.category !== catId ){
+            this.setState({category: catId});
+            this.props.onSetPage(1);
+            this.props.resetProducts();
+            this.loadProducts();
+        }
     }
 
     handleScroll = e => {
@@ -25,10 +40,12 @@ class Products extends Component {
     }
 
     loadProducts = () => {
+        const cat = this.props.match.params.catId;
         const page = this.props.page;
-        const filter = (this.props.cat) ? `/inCategory/${this.props.cat}` : '';
+        const filter = cat ? `/inCategory/${cat}` : '';
         const search = (this.props.search) ? `/search?query_string=${this.props.search}` : '';
         const url = `https://backendapi.turing.com/products${filter}${search}?page=${page}&limit=${this.props.perPage}`;
+        console.log(url)
         this.props.onLoadProducts(url);
     }
 
@@ -44,7 +61,7 @@ class Products extends Component {
         if(!prods) return <ul></ul>;
         const products = prods.map(prod => {
             const description = `${prod.description.substring(0, 80)}${prod.description.length > 80 ? '...' : null}`;
-            return <li key={prod.product_id}><Product image={require(`../../assets/images/product/${prod.thumbnail}`)} title={prod.name} description={description} price={prod.price} /></li>
+            return <li key={prod.product_id+Math.random()}><Product image={require(`../../assets/images/product/${prod.thumbnail}`)} title={prod.name} description={description} price={prod.price} /></li>
         });
         return (
             <React.Fragment>
@@ -58,7 +75,6 @@ class Products extends Component {
 
 const mapStateToProps = state => {
     return {
-        cat: state.filter.filterCategory,
         search: state.filter.searchTxt,
         page: state.product.page,
         prod: state.product.products,
@@ -72,7 +88,8 @@ const mapDispatchToProps = dispatch => {
     return {
         onSetPage: (page) => dispatch(actionCreators.setPage(page)),
         onSetScrolling: (scroll) => dispatch(actionCreators.setScrolling(scroll)),
-        onLoadProducts: (url) => dispatch(actionCreators.loadProducts(url))
+        onLoadProducts: (url) => dispatch(actionCreators.loadProducts(url)),
+        resetProducts: () => dispatch(actionCreators.resetProducts())
     }
 }
 

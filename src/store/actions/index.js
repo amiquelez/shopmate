@@ -1,10 +1,10 @@
 export {
-    filterCategory,
     searchTxt,
     filterDepartment,
     setPage
 } from './filter';
 export {
     loadProducts,
-    setScrolling
+    setScrolling,
+    resetProducts
 } from './products';

@@ -1,4 +1,6 @@
 import React from 'react';
+import { Route } from 'react-router-dom';
+
 import Header from '../header/Header';
 import './Layout.css';
 import Menu from '../menu/Menu';
@@ -10,7 +12,8 @@ const Layout = () => {
             <Header />
             <div className="content">
                 <Menu />
-                <Products />
+                <Route path="/" exact component={Products} />
+                <Route path="/category/:catId" component={Products} />
             </div>
         </div>
     )

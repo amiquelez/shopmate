@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 import './Menu.scss';
-import * as actionCreators from '../../store/actions/index';
 
 class Menu extends Component {
     
@@ -30,7 +30,7 @@ class Menu extends Component {
 
     render(){
         const categories = this.state.categories.map( cat => {
-            return <li key={cat.category_id} onClick={() => this.props.onSelectCategory(cat.category_id)}>{cat.name}</li>;
+            return <li key={cat.category_id}><NavLink to={{pathname: `/category/${cat.category_id}`}}>{cat.name}</NavLink></li>;
         })
         return (
             <div className="categories_menu">
@@ -47,10 +47,4 @@ const mapStateToProps = state => {
     }
 }
 
-const mapDispatchToProps = dispatch => {
-    return {
-        onSelectCategory: (category) => dispatch(actionCreators.filterCategory(category))
-    };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Menu);
+export default connect(mapStateToProps)(Menu);

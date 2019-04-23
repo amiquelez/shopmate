@@ -16,6 +16,12 @@ export const loadProducts = (url) => {
     }
 };
 
+export const resetProducts = () => {
+    return{
+        type: actionTypes.RESET_PRODUCTS
+    }
+}
+
 export const setScrolling = (scroll) => {
     return {
         type: actionTypes.SET_SCROLLING,
