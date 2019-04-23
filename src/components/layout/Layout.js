@@ -8,9 +8,9 @@ import Products from '../products/Products';
 
 const Layout = () => {
     return (
-        <div className="container">
+        <div className="container" data-test="test_container">
             <Header />
-            <div className="content">
+            <div className="content" data-test="test_content">
                 <Menu />
                 <Route path="/" exact component={Products} />
                 <Route path="/category/:catId" component={Products} />

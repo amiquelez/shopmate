@@ -61,7 +61,7 @@ class Products extends Component {
         if(!prods) return <ul></ul>;
         const products = prods.map(prod => {
             const description = `${prod.description.substring(0, 80)}${prod.description.length > 80 ? '...' : null}`;
-            return <li key={prod.product_id+Math.random()}><Product image={require(`../../assets/images/product/${prod.thumbnail}`)} title={prod.name} description={description} price={prod.price} /></li>
+            return <li key={prod.product_id+Math.random()}><Product image={require(`../../assets/images/product/${prod.thumbnail}`)} title={prod.name} description={description} price={+prod.price} /></li>
         });
         return (
             <React.Fragment>
